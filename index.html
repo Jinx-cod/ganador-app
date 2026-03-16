@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GANADOR V1.1</title>
+    
+    <style>
+        /* --- ALL CSS IN ONE GO --- */
+        :root {
+            --orange: #FF6B00;
+            --dark: #0A0F1C;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; overflow: hidden; font-family: sans-serif;
+        }
+
+        #splash-container {
+            position: fixed; inset: 0; z-index: 9999; background: #000;
+        }
+
+        .scene {
+            position: absolute; inset: 0; display: flex; 
+            justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+
+        /* Act 1: Molten Background */
+        #scene-1 { 
+            background: url('1000044617.jpg') center/cover; 
+            filter: brightness(0.4) blur(4px);
+        }
+
+        /* Act 2: Raw Phoenix */
+        #scene-2 img { width: 80%; max-width: 400px; filter: drop-shadow(0 0 20px var(--orange)); }
+
+        /* Act 3: Branded Phoenix + God Rays */
+        #scene-3 { background: radial-gradient(circle, #1a1a1a, #000); }
+        #scene-3 img { width: 85%; max-width: 500px; z-index: 2; }
+        
+        .rays {
+            position: absolute; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,107,0,0.3), transparent 50%);
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .active { opacity: 1 !important; }
+
+        /* App Shell */
+        #app-shell { display: none; height: 100vh; flex-direction: column; color: white; background: var(--dark); }
+        .nav { height: 70px; display: flex; justify-content: space-around; align-items: center; background: #111; border-top: 1px solid #333; }
+        .login { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: white; color: black; }
+        .btn { background: var(--orange); color: white; padding: 15px 40px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="splash-container">
+        <div id="scene-1" class="scene active"></div>
+        <div id="scene-2" class="scene"><img src="1000044620.jpg"></div>
+        <div id="scene-3" class="scene"><div class="rays"></div><img src="1000044621.png"></div>
+    </div>
+
+    <div id="app-shell">
+        <div class="login">
+            <h1 style="color: var(--orange)">GANADOR</h1>
+            <p>Discipline is your rebirth.</p>
+            <button class="btn">LOGIN WITH GOOGLE</button>
+        </div>
+        <nav class="nav">
+            <div style="color: var(--orange)">Home</div>
+            <div>Fitness</div>
+            <div>Health</div>
+            <div>Profile</div>
+        </nav>
+    </div>
+
+    <script>
+        // --- THE BRAIN ---
+        const s1 = document.getElementById('scene-1');
+        const s2 = document.getElementById('scene-2');
+        const s3 = document.getElementById('scene-3');
+        const splash = document.getElementById('splash-container');
+        const app = document.getElementById('app-shell');
+
+        // FORCE REFRESH LOGIC (The "Anti-Ghost" Fix)
+        console.log("System: V1.1 Live");
+
+        // Sequence Timers
+        setTimeout(() => { s1.classList.remove('active'); s2.classList.add('active'); }, 1500);
+        setTimeout(() => { s2.classList.remove('active'); s3.classList.add('active'); }, 3200);
+        setTimeout(() => { 
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+                app.style.display = 'flex';
+            }, 500);
+        }, 4500);
+    </script>
+</body>
+</html>
